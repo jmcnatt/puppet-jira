@@ -432,9 +432,9 @@ describe 'jira' do
 
             it do
               is_expected.to contain_file('/opt/jira/atlassian-jira-software-8.13.5-standalone/conf/server.xml').
-                with_content(%r{proxyName = 'www\.example\.com'}).
-                with_content(%r{scheme = 'https'}).
-                with_content(%r{proxyPort = '9999'})
+                with_content(%r{proxyName="www\.example\.com"}).
+                with_content(%r{scheme="https"}).
+                with_content(%r{proxyPort="9999"})
             end
           end
 
@@ -454,9 +454,9 @@ describe 'jira' do
 
             it do
               is_expected.to contain_file('/opt/jira/atlassian-jira-software-8.13.5-standalone/conf/server.xml').
-                with_content(%r{proxyName = 'www\.example\.com'}).
-                with_content(%r{scheme = 'https'}).
-                with_content(%r{proxyPort = '9999'}).
+                with_content(%r{proxyName="www\.example\.com"}).
+                with_content(%r{scheme="https"}).
+                with_content(%r{proxyPort="9999"}).
                 with_content(%r{redirectPort="8443"}).
                 with_content(%r{port="8443"}).
                 with_content(%r{keyAlias="jira"}).
