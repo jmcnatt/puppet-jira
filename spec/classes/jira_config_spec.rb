@@ -432,7 +432,7 @@ describe 'jira' do
 
             it do
               is_expected.to contain_file('/opt/jira/atlassian-jira-software-8.13.5-standalone/conf/server.xml').
-                without_content(%r{scheme="http"})
+                without_content(%r{scheme="http"}).
                 with_content(%r{proxyName="www\.example\.com"}).
                 with_content(%r{scheme="https"}).
                 with_content(%r{proxyPort="9999"})
@@ -450,7 +450,7 @@ describe 'jira' do
 
             it do
               is_expected.to contain_file('/opt/jira/atlassian-jira-software-8.13.5-standalone/conf/server.xml').
-                with_content(%r{scheme="http"})
+                with_content(%r{scheme="http"}).
                 with_content(%r{scheme="https"}).
                 without_content(%r{proxyName="www\.example\.com"}).
                 without_content(%r{proxyPort="9999"}).
