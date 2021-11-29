@@ -438,7 +438,34 @@ describe 'jira' do
             end
           end
 
-          context 'tomcat proxy path native ssl default params' do
+          context 'tomcat native ssl default params' do
+            let(:params) do
+              {
+                version: '8.13.5',
+                javahome: '/opt/java',
+                tomcat_native_ssl: true
+              }
+            end
+
+            it do
+              is_expected.to contain_file('/opt/jira/atlassian-jira-software-8.13.5-standalone/conf/server.xml').
+                with_content(%r{scheme="http"})
+                with_content(%r{proxyName="www\.example\.com"}).
+                with_content(%r{scheme="https"}).
+                without_content(%r{proxyPort="9999"}).
+                without_content(%r{proxyPort="9999"}).
+                with_content(%r{redirectPort="8443"}).
+                with_content(%r{port="8443"}).
+                with_content(%r{keyAlias="jira"}).
+                with_content(%r{keystoreFile="/home/jira/jira.jks"}).
+                with_content(%r{keystorePass="changeit"}).
+                with_content(%r{keystoreType="JKS"}).
+                with_content(%r{port="8443".*acceptCount="100"}m).
+                with_content(%r{port="8443".*maxThreads="150"}m)
+            end
+          end
+
+          context 'tomcat native ssl default params with proxy path' do
             let(:params) do
               {
                 version: '8.13.5',
@@ -454,17 +481,10 @@ describe 'jira' do
 
             it do
               is_expected.to contain_file('/opt/jira/atlassian-jira-software-8.13.5-standalone/conf/server.xml').
+                without_content(%r{scheme="http"})
                 with_content(%r{proxyName="www\.example\.com"}).
                 with_content(%r{scheme="https"}).
                 with_content(%r{proxyPort="9999"}).
-                with_content(%r{redirectPort="8443"}).
-                with_content(%r{port="8443"}).
-                with_content(%r{keyAlias="jira"}).
-                with_content(%r{keystoreFile="/home/jira/jira.jks"}).
-                with_content(%r{keystorePass="changeit"}).
-                with_content(%r{keystoreType="JKS"}).
-                with_content(%r{port="8443".*acceptCount="100"}m).
-                with_content(%r{port="8443".*maxThreads="150"}m)
             end
           end
 
